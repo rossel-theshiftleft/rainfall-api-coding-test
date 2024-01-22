@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
 using System.Net;
+using RainfallApi.Model;
 
 namespace RainfallApi.Controllers
 {
@@ -13,6 +14,10 @@ namespace RainfallApi.Controllers
         readonly string apiURL = "https://environment.data.gov.uk/flood-monitoring/";
 
         // GET api/<RainfallApiController>/id/stations/3901/readings
+        [ProducesResponseType(200, Type = typeof(RainfallReadingResponse))]
+        [ProducesResponseType(400, Type = typeof(ErrorResponse))]
+        [ProducesResponseType(404, Type = typeof(ErrorResponse))]
+        [ProducesResponseType(500, Type = typeof(ErrorResponse))]
         [HttpGet("id/{stationId}/readings")]
         public async Task<IActionResult> Get(
             [Description("The id of the reading station")] string stationId,
